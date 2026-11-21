@@ -9,8 +9,9 @@ import numpy as np
 X = np.array([[1.0, 1.2, 3],     # first column of 1s gives the intercept
               [1.0, 1.5, 3],
               [1.0, 2.0, 4],
-              [1.0, 2.6, 5]])
-y = np.array([18.0, 22.0, 30.0, 39.0])
+              [1.0, 2.6, 5],
+              [1.0, 3.0, 5]])
+y = np.array([18.0, 22.0, 30.0, 39.0, 45.0])
 
 print("shape of X:", X.shape)
 print("dot product of rows 0 and 1:", X[0] @ X[1])
@@ -21,3 +22,6 @@ w = np.linalg.solve(X.T @ X, X.T @ y)
 print("weights w0, w1, w2:", np.round(w, 3))
 print("predicted prices:", np.round(X @ w, 2))
 print("norm of the error vector:", round(np.linalg.norm(X @ w - y), 3))
+# Task 1: added a fifth house (size 3.0, 5 rooms, price 45).
+# Weights changed from (-1.48, 13.4, 1.14) to (-1.135, 14.363, 0.587).
+# Explanation:After adding a fifth house, the weights changed (w1 from 13.4 to 14.363, w2 from 1.14 to 0.587) because there isn't much data to go on, so one extra house shifts the rule.

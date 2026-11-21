@@ -29,6 +29,9 @@ num = [(g(v + h * e) - g(v)) / h for e in np.eye(2)]
 print("gradient of g at (4, 1): exact", grad_g(v),
       "numerical", np.round(num, 3))
 
-for step in range(1, 6):        # gradient descent, learning rate 0.2
-    v = v - 0.2 * grad_g(v)
+for step in range(1, 31):       # gradient descent, learning rate 0.05
+    v = v - 0.6 * grad_g(v)
     print(f"step {step}: v = {np.round(v, 3)}  g(v) = {g(v):.4f}")
+# Which converges fastest? 0.4.
+# Which diverges? 0.6.
+# Why? The learning rate has to stay below 0.5, which comes from 2 divided by the largest second derivative, 4.

@@ -21,9 +21,20 @@ print(f"score at the 90th percentile = {scores.ppf(0.90):.1f}")
 
 # (c) a t-test on two groups of 40 students (simulated, seed fixed)
 rng = np.random.default_rng(465)
-old = rng.normal(55, 12, 40)
-new = rng.normal(61, 12, 40)
+old = rng.normal(55, 12, 200)
+new = rng.normal(61, 12, 200)
 t, p = stats.ttest_ind(new, old)
 print(f"means: old {old.mean():.1f}, new {new.mean():.1f}")
 print(f"t = {t:.2f}, p-value = {p:.4f}",
       "-> reject H0 at 5%" if p < 0.05 else "-> do not reject H0")
+# count how often H0 is rejected over 20 different seeds
+rejections = 0
+for seed in range(1, 21):
+    rng = np.random.default_rng(seed)
+    old = rng.normal(55, 12, 200)
+    new = rng.normal(61, 12, 200)
+    t, p = stats.ttest_ind(new, old)
+    if p < 0.05:
+        rejections += 1
+print("rejected H0 in", rejections, "out of 20 seeds")
+#Yes, with 200 students the t-test now rejects H0, and it did so in 20 out of 20 seeds. A bigger group makes it much easier to detect a real difference.
